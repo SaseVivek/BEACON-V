@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+    --color-slate-950: #020617;
+    --font-display: 'Outfit', sans-serif;
+}
+
+:root {
+    font-family: 'Outfit', sans-serif;
+    color-scheme: dark;
+}
+
+body {
+    @apply bg-slate-950 text-white;
+    background-image:
+        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.1) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
+    background-attachment: fixed;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-slate-900;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-slate-700 rounded-full hover:bg-slate-600 transition;
+}
+
+.leaflet-container {
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    @apply rounded-xl shadow-2xl border border-slate-700;
+}
+
+@layer utilities {
+    .glass-panel {
+        @apply bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 shadow-2xl;
+    }
+
+    .input-field {
+        @apply w-full bg-slate-950/50 border border-slate-700 rounded-lg pl-12 pr-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all;
+    }
+
+    .btn-primary {
+        @apply w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg shadow-cyan-500/20 transition-all active:scale-[0.98];
+    }
+
+    .btn-secondary {
+        @apply w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 px-6 rounded-lg border border-slate-600 transition-all active:scale-[0.98];
+    }
+}
+
+/* Animations */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}

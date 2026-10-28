@@ -1,0 +1,11 @@
+{
+  "samples_used": 206,
+  "mean_error_km": 14.503167495548835,
+  "median_error_km": 13.477409439675274,
+  "p90_error_km": 17.56200039443214,
+  "p95_error_km": 19.744751459906333,
+  "pct_within_1km": 0.0,
+  "pct_within_2km": 0.0,
+  "pct_within_5km": 0.0,
+  "parsed_log_epochs": 2
+}

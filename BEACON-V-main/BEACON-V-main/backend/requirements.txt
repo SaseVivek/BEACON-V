@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+requests
+numpy
+motor
+python-multipart
+python-jose[cryptography]
+passlib[bcrypt]

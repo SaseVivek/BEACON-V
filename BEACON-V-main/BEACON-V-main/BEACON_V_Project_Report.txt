@@ -1,0 +1,55 @@
+=========================================================
+      PROJECT REPORT: BEACON-V 
+   (Delay-Tolerant Vehicular Network Monitoring System)
+=========================================================
+
+1. PROJECT OVERVIEW
+---------------------------------------------------------
+BEACON-V is a comprehensive vehicular network monitoring system designed specifically for delay-tolerant communication scenarios. The primary goal of the system is to track, visualize, and predict the movement of vehicles in real-time or near real-time, even in environments where continuous network connectivity is not guaranteed. It provides a centralized "Command Center" dashboard with advanced AI-powered trajectory prediction.
+
+2. CORE FEATURES
+---------------------------------------------------------
+* Real-time Vehicle Tracking: Visually maps the real-time (and historical) GPS coordinates of vehicles on an interactive geographic map.
+* AI-Powered Trajectory Prediction: Utilizes a trained Machine Learning model to analyze historical movement data and predict future vehicle locations.
+* Command Center Interface: A modern, glassmorphism-inspired dark-mode UI designed for quick assessment and monitoring by administrators.
+* Secure Authentication Portal: Role-based, JWT-secured login and registration system ensuring that sensitive vehicular data is accessible only to authorized personnel.
+* Delay-Tolerant Architecture: Built to sync data reliably when connectivity is restored, managing asynchronous vehicle updates efficiently.
+
+3. SYSTEM ARCHITECTURE & FLOW
+---------------------------------------------------------
+The project follows a standard Client-Server architecture, divided into three main components: Frontend (UI), Backend (API & Business Logic), and Database.
+
+Working Flow:
+1. Data Ingestion: Vehicles (or simulated clients) send their GPS data (latitude, longitude, timestamp, vehicle ID) to the backend via secure API endpoints.
+2. Data Storage: The backend authenticates the incoming requests and stores the raw GPS data directly into the NoSQL database.
+3. AI Processing: When a prediction is requested, the backend triggers the Machine Learning service. The ML service reads recent data points, feeds them into the deep learning model, and calculates the probable future trajectory.
+4. Presentation: The frontend application continuously polls or connects to the backend to fetch updated locations and prediction paths, rendering them dynamically on an interactive map.
+
+4. USER WORKFLOW (How a user interacts with the system)
+---------------------------------------------------------
+* Step 1: User navigates to the portal and encounters a secure Landing/Login page.
+* Step 2: User successfully registers or logs in with valid credentials, receiving an access token for secure communication.
+* Step 3: Upon login, the user is redirected to the Dashboard (Command Center).
+* Step 4: The Dashboard presents a large geographical map displaying vehicle blips, alongside statistical panels (e.g., Active Vehicles, Pending Messages).
+* Step 5: The user can select specific vehicles to view historical routes and ask the system to plot AI-predicted future paths directly on the map.
+
+5. TECHNOLOGY STACK
+---------------------------------------------------------
+Frontend (User Interface)
+* Library/Framework: React, Vite (for fast builds and optimized bundling)
+* Styling: Tailwind CSS (v4) for rapid, responsive UI design utilizing dark-mode and glassmorphic aesthetics.
+* Visualization: Leaflet.js for rendering the interactive geographical map.
+* Icons & Assets: Lucide Icons.
+
+Backend (Server & APIs)
+* Framework: FastAPI (Python-based, high-performance web framework for building APIs).
+* Server: Uvicorn (Lightning-fast ASGI server instance).
+* Authentication: JWT (JSON Web Tokens) for secure, stateless user sessions.
+* Machine Learning: TensorFlow/Keras (Execution of the pre-trained `movement_model.h5` deep learning model).
+
+Database
+* Technology: MongoDB (NoSQL database chosen for its flexibility in handling unstructured or semi-structured time-series GPS data).
+
+6. CONCLUSION
+---------------------------------------------------------
+BEACON-V successfully bridges the gap between unreliable vehicular networks and the need for continuous tracking and prediction. By leveraging a robust Python FastAPI backend, a dynamic React frontend, and an AI-driven prediction engine, the system offers high performance, security, and actionable insights for fleet administrators.

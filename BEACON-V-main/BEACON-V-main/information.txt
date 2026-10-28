@@ -1,0 +1,99 @@
+=========================================================
+      BEACON-V: COMPLETE PROJECT DOCUMENTATION
+=========================================================
+
+1. PROJECT OVERVIEW & VISION
+---------------------------------------------------------
+BEACON-V is a robust "Delay-Tolerant Vehicular Network Monitoring System." 
+Designed for scenarios where continuous network connectivity is not guaranteed, 
+it leverages AI-powered trajectory prediction to estimate vehicle movements 
+and facilitate message routing even during network outages.
+
+Key Value Proposition:
+* Predictive Intelligence: Fills data gaps using deep learning.
+* Real-time Visibility: High-performance map visualization.
+* Secure Command Center: JWT-protected administration portal.
+* Modern Aesthetics: Glassmorphic, dark-mode focused UI.
+
+2. TECHNOLOGY STACK
+---------------------------------------------------------
+FRONTEND (User Interface):
+* Library: React 19
+* Build Tool: Vite 7
+* Styling: Tailwind CSS v4 (Glassmorphism design)
+* Maps: Leaflet.js (via react-leaflet)
+* Communication: Axios
+
+BACKEND (API & Logic):
+* Framework: FastAPI (Python 3.8+)
+* Server: Uvicorn (ASGI)
+* AI/ML: TensorFlow/Keras (Execution of .h5 model)
+* Database: MongoDB (Async via Motor driver)
+* Security: JWT (JSON Web Tokens), bcrypt hashing
+
+3. SYSTEM ARCHITECTURE & DATA FLOW
+---------------------------------------------------------
+The system follows a modern Client-Server architecture:
+
+[Data Ingestion] -> [FastAPI Backend] -> [MongoDB Storage]
+       ^                  |                   |
+       |                  v                   |
+[Vehicle Feed] <--- [AI Prediction] <---------+
+       |                  |
+       v                  v
+[React Dashboard] <--- [Map Visualization]
+
+Workflow Details:
+1. Authentication: Users/Vehicles log in to the Access Portal to receive a JWT.
+2. Tracking: Vehicles send batches of GPS packets (Lat, Lon, Speed, Heading).
+3. Prediction: When 20 points are accumulated, the AI model (movement_model.h5) 
+   predicts the next destination coordinate.
+4. Visualization: The dashboard renders current "blips" and AI-predicted 
+   "ghost trails" on an interactive map.
+
+4. MACHINE LEARNING ENGINE
+---------------------------------------------------------
+* Model File: movement_model.h5
+* Input Requirement: A sequence of 20 consecutive GPS points.
+* Spatial Logic: Uses the Haversine formula to calculate the distance from 
+  predicted points to "Target Zones."
+* Service Layer: ml_service.py handles model loading, inference, and 
+  zone eligibility checks.
+
+5. DIRECTORY STRUCTURE
+---------------------------------------------------------
+/backend/
+  ├── app/
+  │   ├── main.py        # Entry point & Router setup
+  │   ├── models.py      # Pydantic schemas (User, GPS, Zones)
+  │   ├── services/      # ML and business logic
+  │   └── routers/       # Auth, Vehicle, and Admin API routes
+  ├── movement_model.h5  # Pre-trained TensorFlow model
+  └── seed_admin.py      # User initialization script
+
+/frontend/
+  ├── src/
+  │   ├── components/    # Reusable UI widgets
+  │   ├── pages/         # Dashboard, Login, Register views
+  │   ├── api.js         # Axios configuration
+  │   └── App.jsx        # Route management
+  └── tailwind.config.js # Custom design tokens
+
+6. DATA MODELS (Selection)
+---------------------------------------------------------
+* GPSPoint: { latitude: float, longitude: float }
+* TrajectoryInput: { vehicle_id: str, gps_path: List[GPSPoint] }
+* EmergencyMessage: { content: str, priority: str, target_zone: str }
+
+7. SETUP & EXECUTION
+---------------------------------------------------------
+Backend:
+cd backend && pip install -r requirements.txt
+uvicorn app.main:app --reload
+
+Frontend:
+cd frontend && npm install
+npm run dev
+
+Documentation generated on: 2026-04-10
+Status: ACTIVE
